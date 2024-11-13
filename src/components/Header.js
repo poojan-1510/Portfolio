@@ -3,18 +3,22 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 
-function Header() {
+function Header({ onLinkClick, activeSection }) {
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">Poojan Shah</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="ml-auto">
-                    <Nav.Link href="#profile">Profile</Nav.Link>
-                    <Nav.Link href="#education">Education</Nav.Link>
-                    <Nav.Link href="#skills">Skills</Nav.Link>
-                    <Nav.Link href="#projects">Projects</Nav.Link>
-                    <Nav.Link href="#contact">Contact</Nav.Link>
+                    {['profile', 'education', 'skills', 'projects', 'contact'].map((section) => (
+                        <Nav.Link
+                            key={section}
+                            onClick={() => onLinkClick(section)}
+                            className={activeSection === section ? 'active' : ''}
+                        >
+                            {section.charAt(0).toUpperCase() + section.slice(1)}
+                        </Nav.Link>
+                    ))}
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
